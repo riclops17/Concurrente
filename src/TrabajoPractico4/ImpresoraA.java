@@ -5,23 +5,41 @@
  */
 package TrabajoPractico4;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author ricardo
  */
     public class ImpresoraA  extends Thread{
-    private int numero;
-    private String dato;
-    private Buffer buff;
-    private char tipo;
-    public ImpresoraA(int n,String d, Buffer b){
-        numero = n;
-        buff = b;
-        dato = d;
-       
+    Buffer colaImp;
+
+    public ImpresoraA(Buffer c) {
+        colaImp = c;
     }
-    public void run(){
-      
+
+    @Override
+    public void run() {
+        while (true) {
+            colaImp.quitarA();
+            System.out.println("Imprimiendo un trabajo tipo A");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+
+            colaImp.quitarB();
+            System.out.println("Imprimiendo un trabajo tipo B");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
+
 }
+
 

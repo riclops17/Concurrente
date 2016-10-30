@@ -10,21 +10,43 @@ import TrabajoPractico4.ColaInt;
  * @author ricardo
  */
 public class Buffer {
- private ColaInt datos;
- public Buffer (){
+    private int tipoA;
+    private int tipoB;
+
+    public Buffer() {
+        tipoA = 0;
+        tipoB = 0;
+    }
+
+    public synchronized void agregarA() {
+        tipoA++;
+        notifyAll();
+    }
+
+    public synchronized void agregarB() {
+        tipoB++;
+        notifyAll();
+    }
+
+    public synchronized void quitarA() {
+        while (tipoA == 0) {
+            try {
+                wait();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
+        tipoA--;
+    }
     
-}
- 
- public synchronized int sacar() throws InterruptedException{
-     while (datos.esVacia()){
-         this.wait();
-     }
-     datos.obtenerFrente();
-     this.notifyAll();
-     return(datos.obtenerFrente());
- }
- public Synchronized void agregar(int a ){
-       datos.poner(a);
-       this.notifyAll();
- }
+    public synchronized void quitarB() {
+        while (tipoB == 0) {
+            try {
+                wait();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
+        tipoB--;
+    }
 }
