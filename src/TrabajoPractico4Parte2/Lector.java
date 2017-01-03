@@ -21,11 +21,14 @@ public class Lector extends Thread{
         this.li = l1;
     }
     public void run(){
-        while(true){
+        
             try {
+                
                 li.empezarLeer(id);
+                
                 // leyendo
                 li.terminarLeer(id);
+                
             } catch (InterruptedException ex) {
                 Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -33,4 +36,4 @@ public class Lector extends Thread{
         }
     }
     
-}
+

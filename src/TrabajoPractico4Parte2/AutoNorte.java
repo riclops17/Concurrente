@@ -12,27 +12,24 @@ import java.util.logging.Logger;
  *
  * @author ricardo
  */
-public class Escritor  extends Thread{
+public class AutoNorte extends Thread{
     private int id;
-    private Libro li;
-    
-    public Escritor(int id1, Libro l1){
-        this.id = id1;
-        this.li = l1;
+    private GestionaTraficoMejorado g;
+    public AutoNorte (int i, GestionaTraficoMejorado g1){
+        this.id = i;
+        this.g = g1;
     }
     public void run(){
-        
+        while(true){
             try {
+                g.EntrarCocheDelNorte(id);
+                //recorriendo puente
                
-                li.EmpezarEscribir(id);
-               
-                // escribiendo
-                li.TerminarEscribir(id);
-               
+                g.SalirCocheDelNorte(id);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Escritor.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AutoNorte.class.getName()).log(Level.SEVERE, null, ex);
             }
             
         }
     }
-
+}
